@@ -10,10 +10,15 @@ export const findByTestAttr = (wrapper, val) => {
   return wrapper.find(`[data-test="${val}"]`);
 };
 
-export const checkProps = (component, confirmingProps) => {
+/**
+ * Throw error if confirmingProps do not pass propTypes validation.
+ * @param {React.Component} component - Component to check props against.
+ * @param {object} conformingProps - Props we expect to conform to defined propType.
+ */
+export const checkProps = (component, conformingProps) => {
   const propError = checkPropTypes(
     component.propTypes,
-    confirmingProps,
+    conformingProps,
     "prop",
     component.name
   );
