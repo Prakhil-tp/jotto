@@ -5,7 +5,7 @@ const Input = ({ secretWord }) => {
   const [currentGuess, setCurrentGuess] = React.useState("");
   return (
     <div data-test="component-input">
-      <from className="form-inline">
+      <form className="form-inline">
         <input
           data-test="input-box"
           className="mb-2 mx-sm-3"
@@ -16,7 +16,7 @@ const Input = ({ secretWord }) => {
         />
         <button
           data-test="submit-button"
-          classname="btn btn-primary mb-2"
+          className="btn btn-primary mb-2"
           onClick={(event) => {
             event.preventDefault();
             // TODO: update guessedWords
@@ -26,7 +26,7 @@ const Input = ({ secretWord }) => {
         >
           submit
         </button>
-      </from>
+      </form>
     </div>
   );
 };
