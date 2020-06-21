@@ -3,18 +3,19 @@ import PropTypes from "prop-types";
 import languageContext from "./contexts/languageContext";
 import stringModule from "./helpers/strings";
 
-const GuessedWords = (props) => {
+const GuessedWords = () => {
+  const guessedWords = [];
   const language = React.useContext(languageContext);
 
   let contents;
-  if (props.guessedWords.length === 0) {
+  if (guessedWords.length === 0) {
     contents = (
       <span data-test="guessed-instructions">
         {stringModule.getStringByLanguage(language, "guessPrompt")}
       </span>
     );
   } else {
-    const guessedWordRows = props.guessedWords.map((word, index) => (
+    const guessedWordRows = guessedWords.map((word, index) => (
       <tr data-test="guessed-word" key={index}>
         <td>{word.guessedWord}</td>
         <td>{word.letterMatchCount}</td>

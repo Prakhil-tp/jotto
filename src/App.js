@@ -4,6 +4,7 @@ import Congrats from "./Congrats";
 import hookActions from "./actions/hookActions";
 import languageContext from "./contexts/languageContext";
 import LanguagePicker from "./LanguagePicker";
+import successContext from "./contexts/successContext";
 import Input from "./Input";
 
 /**
@@ -56,10 +57,13 @@ function App() {
   return (
     <div data-test="component-app" className="container">
       <h1>Jotto</h1>
-      <Congrats success={false} />
       <languageContext.Provider value={state.language}>
         <LanguagePicker setLanguage={setLanguage} />
-        <Input secretWord={state.secretWord} />
+        <successContext.SuccessProvider>
+          <Congrats success={false} />
+          <Input secretWord={state.secretWord} />
+        </successContext.SuccessProvider>
+        {/* <GuessedWords /> */}
       </languageContext.Provider>
       <GuessedWords
         guessedWords={[{ guessedWord: "train", letterMatchCount: 3 }]}
