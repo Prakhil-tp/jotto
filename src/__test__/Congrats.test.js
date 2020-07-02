@@ -6,7 +6,7 @@ import successContext from "../contexts/successContext";
 import { findByTestAttr } from "test/testUtils";
 
 /**
- * Factory fuction to create a ShallowWrapper for Congrats component.
+ * Factory function to create a ShallowWrapper for Congrats component.
  * @function setUp
  * @param {object} testValues - context values specific to this setup.
  * @returns {ShallowWrapper}
