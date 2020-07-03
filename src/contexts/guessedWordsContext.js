@@ -1,4 +1,9 @@
-import React, { createContext, useContext } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useMemo
+} from "react";
 
 // no default value
 const guessedWordsContext = createContext();
@@ -7,7 +12,7 @@ const guessedWordsContext = createContext();
  * @function useGuessedWords
  * @returns {Array} guessedWordsContext value, which is state of [value, setter].
  */
-export function useGuessedWords() {
+function useGuessedWords() {
   const context = useContext(guessedWordsContext);
 
   if (!context) {
@@ -24,7 +29,7 @@ export function useGuessedWords() {
  * @param {object} props
  * @returns {JSX.Element}
  */
-export function GuessedWordsProvider(props) {
+function GuessedWordsProvider(props) {
   const [guessedWords, setGuessedWords] = useState([]);
 
   const value = useMemo(() => [guessedWords, setGuessedWords], [
@@ -32,3 +37,5 @@ export function GuessedWordsProvider(props) {
   ]);
   return <guessedWordsContext.Provider value={value} {...props} />;
 }
+
+export default { useGuessedWords, GuessedWordsProvider };

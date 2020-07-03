@@ -1,12 +1,9 @@
 import React from "react";
 import { shallow } from "enzyme";
-import {
-  useGuessedWords,
-  GuessedWordsProvider
-} from "./guessedWordsContext";
+import guessedWordsContext from "./guessedWordsContext";
 
 const FunctionalComponent = () => {
-  useGuessedWords();
+  guessedWordsContext.useGuessedWords();
   return <div />;
 };
 
@@ -19,9 +16,9 @@ test("useGuessedWords throws an Error when not wrapped in GuessedWordsProvider",
 test("useGuessedWords does not throw error when not Wrapped in GuessedWordsProvider", () => {
   expect(() =>
     shallow(
-      <GuessedWordsProvider>
+      <guessedWordsContext.GuessedWordsProvider>
         <FunctionalComponent />
-      </GuessedWordsProvider>
+      </guessedWordsContext.GuessedWordsProvider>
     )
   ).not.toThrow(
     "useGuessedWords must be used within a GuessedWordsProvider"

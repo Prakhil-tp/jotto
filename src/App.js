@@ -6,6 +6,7 @@ import languageContext from "./contexts/languageContext";
 import LanguagePicker from "./LanguagePicker";
 import successContext from "./contexts/successContext";
 import Input from "./Input";
+import guessedWordsContext from "./contexts/guessedWordsContext";
 
 /**
  * Reducer to update state, called automatically by dispatch
@@ -59,15 +60,14 @@ function App() {
       <h1>Jotto</h1>
       <languageContext.Provider value={state.language}>
         <LanguagePicker setLanguage={setLanguage} />
-        <successContext.SuccessProvider>
-          <Congrats success={false} />
-          <Input secretWord={state.secretWord} />
-        </successContext.SuccessProvider>
-        {/* <GuessedWords /> */}
+        <guessedWordsContext.GuessedWordsProvider>
+          <successContext.SuccessProvider>
+            <Congrats success={false} />
+            <Input secretWord={state.secretWord} />
+          </successContext.SuccessProvider>
+          <GuessedWords />
+        </guessedWordsContext.GuessedWordsProvider>
       </languageContext.Provider>
-      <GuessedWords
-        guessedWords={[{ guessedWord: "train", letterMatchCount: 3 }]}
-      />
     </div>
   );
 }

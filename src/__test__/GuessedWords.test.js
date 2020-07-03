@@ -1,16 +1,21 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import GuessedWords from "../GuessedWords";
 import { findByTestAttr } from "test/testUtils";
+import guessedWordsContext from "../contexts/guessedWordsContext";
 
 /**
  * Factory fuction to create a ShallowWrapper for the GuessedWords component
  * @function setup
- * @param {array} props - guessedWords value specific to this setup.
+ * @param {Array} guessedWords - guessedWords value specific to this setup.
  * @returns {ShallowWrapper}
  */
 
 const setup = (guessedWords = []) => {
+  const mockUseGuessedWords = jest
+    .fn()
+    .mockReturnValue([guessedWords, jest.fn()]);
+  guessedWordsContext.useGuessedWords = mockUseGuessedWords;
   return shallow(<GuessedWords />);
 };
 
@@ -78,7 +83,7 @@ describe("languagePicker", () => {
   test("correctly renders guess instructions string in emoji", () => {
     const mockUseContext = jest.fn().mockReturnValue("emoji");
     React.useContext = mockUseContext;
-    const wrapper = setup;
+    const wrapper = setup();
     const guessInstructions = findByTestAttr(
       wrapper,
       "guessed-instructions"
