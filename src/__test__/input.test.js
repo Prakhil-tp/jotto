@@ -1,8 +1,9 @@
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { mount } from "enzyme";
 import { findByTestAttr, checkProps } from "test/testUtils";
 import languageContext from "../contexts/languageContext";
 import Input from "../Input";
+import successContext from "../contexts/successContext";
 
 /**
  * Factory function to create ShallowWrapper for Input component.
@@ -10,15 +11,18 @@ import Input from "../Input";
  * @param {object} testValues - context and props specific to this setup.
  * @returns {ShallowWrapper}
  */
-const setup = ({ secretWord, language }) => {
+const setup = ({ secretWord, language, success }) => {
   // const setupProps = { ...defaultProps, ...props };
   // return shallow(<Input {...setupProps} />);
   secretWord = secretWord || "party";
   language = language || "en";
+  success = success || false;
 
   return mount(
     <languageContext.Provider value={language}>
-      <Input secretWord={secretWord} />
+      <successContext.SuccessProvider value={[success, jest.fn()]}>
+        <Input secretWord={secretWord} />
+      </successContext.SuccessProvider>
     </languageContext.Provider>
   );
 };
@@ -74,4 +78,9 @@ describe("languagePicker", () => {
     const submitButton = findByTestAttr(wrapper, "submit-button");
     expect(submitButton.text()).toBe("🚀");
   });
+});
+
+test("input component does not show when success is true", () => {
+  const wrapper = setup({ secretWord: "party", success: true });
+  expect(wrapper.isEmptyRender()).toBe(true);
 });
