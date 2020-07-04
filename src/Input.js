@@ -34,6 +34,12 @@ const Input = ({ secretWord }) => {
             event.preventDefault();
             // TODO: update guessedWords
             // TODO: check against secretWord and update success if needed.
+
+            if (currentGuess === secretWord) {
+              setSuccess(true);
+            }
+
+            // clear input box
             setCurrentGuess("");
           }}
         >
